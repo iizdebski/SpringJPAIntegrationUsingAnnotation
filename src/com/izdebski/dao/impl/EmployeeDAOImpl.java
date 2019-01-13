@@ -3,6 +3,7 @@ package com.izdebski.dao.impl;
 import com.izdebski.dao.EmployeeDAO;
 import com.izdebski.model.Employee;
 import org.hibernate.criterion.DetachedCriteria;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +14,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     private HibernateTemplate hibernateTemplate;
 
+    @Autowired
     public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
         this.hibernateTemplate = hibernateTemplate;
     }

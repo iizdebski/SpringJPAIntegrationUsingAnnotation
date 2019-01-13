@@ -16,11 +16,11 @@ public class Test {
 
         EmployeeService employeeService = ctx.getBean("employeeService", EmployeeServiceImpl.class);
 
-        //createEmployee(employeeService);
+        createEmployee(employeeService);
         //getEmployeeById(employeeService);
         //fetchAllEmployeeInfo(employeeService);
         //employeeService.updateEmployeeEmailById("Jimmy.s3032@yahoo.com", 2);
-        employeeService.deleteEmployeeById(6);
+        //employeeService.deleteEmployeeById(6);
         ctx.close();
     }
 
@@ -39,8 +39,8 @@ public class Test {
         private static void createEmployee(EmployeeService employeeService){
 
             Employee employee = new Employee();
-            employee.setEmail("maxim.s@yahoo.com");
-            employee.setEmployeeName("Maxim");
+            employee.setEmail("john.s@yahoo.com");
+            employee.setEmployeeName("John");
             employee.setGender("Male");
             employee.setSalary(60000.00);
             employeeService.addEmployee(employee);
