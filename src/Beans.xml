@@ -6,8 +6,6 @@
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:component-scan base-package="com.izdebski.dao.impl"></context:component-scan>
-    <context:component-scan base-package="com.izdebski.service.impl"></context:component-scan>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     <property name="driverClassName" value="${db.driverClassName}"></property>
@@ -16,19 +14,39 @@
     <property name="password" value="${db.password}"></property>
     </bean>
 
-    <!-- <bean id="employeeService" class="com.izdebski.service.impl.EmployeeServiceImpl">
+    <bean id="employeeService" class="com.izdebski.service.impl.EmployeeServiceImpl">
         <property name="employeeDAO" ref="employeeDAO"></property>
-    </bean> -->
-
-    <!-- <bean id="employeeDAO" class="com.izdebski.dao.impl.EmployeeDAOImpl">
-        <property name="jdbcTeplate" ref="jdbcTemplate"></property>
-        </bean> -->
-
-    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <constructor-arg name="dataSource" ref="dataSource"></constructor-arg>
     </bean>
 
-    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <bean id="employeeDAO" class="com.izdebski.dao.impl.EmployeeDAOImpl">
+        <property name="hibernateTemplate" ref="hibernateTemplate"></property>
+        </bean>
+
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+    <constructor-arg name="sessionFactory" ref="sessionFactory"></constructor-arg>
+    </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+
+        <property name="annotatedClasses">
+            <array>
+                <value>com.izdebski.model.Employee</value>
+            </array>
+        </property>
+
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean
+            class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
                 <value>database.properties</value>

@@ -18,9 +18,9 @@ public class Test {
 
         //createEmployee(employeeService);
         //getEmployeeById(employeeService);
-        fetchAllEmployeeInfo(employeeService);
-        //employeeService.updateEmployeeEmailById("Jimmy.s2031@yahoo.com", 2);
-        employeeService.deleteEmployeeById(1);
+        //fetchAllEmployeeInfo(employeeService);
+        //employeeService.updateEmployeeEmailById("Jimmy.s3032@yahoo.com", 2);
+        employeeService.deleteEmployeeById(6);
         ctx.close();
     }
 
@@ -39,10 +39,10 @@ public class Test {
         private static void createEmployee(EmployeeService employeeService){
 
             Employee employee = new Employee();
-            employee.setEmail("peter.s@yahoo.com");
-            employee.setEmployeeName("Peter");
+            employee.setEmail("maxim.s@yahoo.com");
+            employee.setEmployeeName("Maxim");
             employee.setGender("Male");
-            employee.setSalary(90000.00);
+            employee.setSalary(60000.00);
             employeeService.addEmployee(employee);
         }
 }
