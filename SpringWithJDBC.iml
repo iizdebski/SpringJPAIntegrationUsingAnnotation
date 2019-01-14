@@ -17,7 +17,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="mysql-connector-java-8.0.13" level="project" />
-    <orderEntry type="library" name="LibSpring4Hibernate3Integration" level="project" />
-    <orderEntry type="library" name="jar" level="project" />
+    <orderEntry type="library" name="SpringJPA" level="project" />
   </component>
 </module>

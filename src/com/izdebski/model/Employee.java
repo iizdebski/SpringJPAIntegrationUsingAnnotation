@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="employee_table")
+@org.hibernate.annotations.Entity(dynamicUpdate = true)
 public class Employee {
 
     @Id

@@ -16,11 +16,11 @@ public class Test {
 
         EmployeeService employeeService = ctx.getBean("employeeService", EmployeeServiceImpl.class);
 
-        createEmployee(employeeService);
+        //createEmployee(employeeService);
         //getEmployeeById(employeeService);
-        //fetchAllEmployeeInfo(employeeService);
-        //employeeService.updateEmployeeEmailById("Jimmy.s3032@yahoo.com", 2);
-        //employeeService.deleteEmployeeById(6);
+        fetchAllEmployeeInfo(employeeService);
+        //employeeService.updateEmployeeEmailById("Jimmy.s31032@yahoo.com", 3);
+        //employeeService.deleteEmployeeById(2);
         ctx.close();
     }
 
@@ -32,17 +32,17 @@ public class Test {
     }
 
         private static void getEmployeeById(EmployeeService employeeService){
-            Employee employee = employeeService.fetchEmployeeById(2);
+            Employee employee = employeeService.fetchEmployeeById(3);
             System.out.println(employee.getEmployeeId() + "\t" + employee.getEmployeeName());
     }
 
         private static void createEmployee(EmployeeService employeeService){
 
             Employee employee = new Employee();
-            employee.setEmail("john.s@yahoo.com");
-            employee.setEmployeeName("John");
+            employee.setEmail("tommy.t@yahoo.com");
+            employee.setEmployeeName("Tommy");
             employee.setGender("Male");
-            employee.setSalary(60000.00);
+            employee.setSalary(70000.00);
             employeeService.addEmployee(employee);
         }
 }

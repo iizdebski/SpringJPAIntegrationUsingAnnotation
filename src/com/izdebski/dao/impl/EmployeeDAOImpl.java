@@ -2,55 +2,62 @@ package com.izdebski.dao.impl;
 
 import com.izdebski.dao.EmployeeDAO;
 import com.izdebski.model.Employee;
-import org.hibernate.criterion.DetachedCriteria;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
 
 @Repository
 public class EmployeeDAOImpl implements EmployeeDAO {
 
-    private HibernateTemplate hibernateTemplate;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    @Autowired
-    public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
-        this.hibernateTemplate = hibernateTemplate;
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
+    @Transactional
     @Override
     public void createEmployee(Employee employee) {
-        hibernateTemplate.save(employee);
+        entityManager.persist(employee);
     }
 
+    @Transactional
     @Override
     public Employee getEmployeeById(int employeeId) {
-        Employee employee = hibernateTemplate.get(Employee.class, employeeId);
-        return employee;
+        return  entityManager.find(Employee.class, employeeId);
     }
 
+    @Transactional
     @Override
     public void deleteEmployeeById(int employeeId) {
-        Employee employee = new Employee();
-        employee.setEmployeeId(employeeId);
-
-        hibernateTemplate.delete(employee);
+       Employee employee = entityManager.find(Employee.class, employeeId);
+       if(employee != null){
+           entityManager.remove(employee);
+       }
     }
 
+    @Transactional
     @Override
     public void updateEmployeeEmailById(String newEmail, int employeeId) {
-        Employee employee = hibernateTemplate.get(Employee.class, employeeId);
-        employee.setEmail(newEmail);
-        hibernateTemplate.update(employee);
+        Employee employee = entityManager.find(Employee.class, employeeId);
+        if (employee != null) {
+            employee.setEmail(newEmail);
+            entityManager.merge(employee);
+        }
     }
 
+    @Transactional
     @Override
-    public List<Employee> getAllEmployeesDetails(){
+        public List<Employee> getAllEmployeesDetails () {
+        Query query = entityManager.createQuery("FROM Employee");
+        query.getResultList();
 
-        DetachedCriteria criteria = DetachedCriteria.forClass(Employee.class);
-        List<Employee> EmpList = (List<Employee>) hibernateTemplate.findByCriteria(criteria);
-        return EmpList;
+        List<Employee>empList = query.getResultList();
+            return empList;
     }
-
 }
